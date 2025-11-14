@@ -178,7 +178,7 @@ jobs:
           cd OpenWrt-${{ env.arch-path }}
           wget https://github.com/jedisct1/libsodium/releases/download/1.0.20-RELEASE/libsodium-1.0.20.tar.gz
           (tar zxf libsodium-1.0.20.tar.gz && cd libsodium-1.0.20) 
-          bash ./autogen.sh && CROSS_PREFIX=mipsel-openwrt-linux-musl- ./configure --host=mipsel-openwrt-linux-musl --enable-minimal --disable-asm --with-pthreads=no CC=mipsel-openwrt-linux-musl-gcc CXX=mipsel-openwrt-linux-musl-g++ AR=mipsel-openwrt-linux-musl-ar RANLIB=mipsel-openwrt-linux-musl-ranlib CFLAGS="-mips32r2 -msoft-float -Os -mno-branch-likely" && make && make check && sudo make install)
+          bash ./autogen.sh && CROSS_PREFIX=mipsel-openwrt-linux-musl- ./configure --host=mipsel-openwrt-linux-musl --enable-minimal --disable-asm --with-pthreads=no CC=mipsel-openwrt-linux-musl-gcc CXX=mipsel-openwrt-linux-musl-g++ AR=mipsel-openwrt-linux-musl-ar RANLIB=mipsel-openwrt-linux-musl-ranlib CFLAGS="-mips32r2 -msoft-float -Os -mno-branch-likely" && make && make check && sudo make install
           cd ..
           cp -rf ../App/. .
           
