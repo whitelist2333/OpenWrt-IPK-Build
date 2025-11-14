@@ -170,8 +170,8 @@ jobs:
 
       - name: 准备SDK
         run: |
-          SDK_URL1="https://downloads.immortalwrt.org/releases/24.10-SNAPSHOT/targets/${{ env.arch_path }}/immortalwrt-sdk-24.10-SNAPSHOT-${{ env.arch-path }}_gcc-13.3.0_musl.Linux-x86_64.tar.zst"
-          SDK_URL2="https://downloads.immortalwrt.org/releases/24.10-SNAPSHOT/targets/${{ env.arch_path }}/immortalwrt-sdk-24.10-SNAPSHOT-${{ env.arch-path }}_gcc-13.3.0_musl_eabi.Linux-x86_64.tar.zst"
+          SDK_URL1="https://downloads.immortalwrt.org/releases/24.10.4/targets/${{ env.arch_path }}/immortalwrt-sdk-24.10.4-${{ env.arch-path }}_gcc-13.3.0_musl.Linux-x86_64.tar.zst"
+          SDK_URL2="https://downloads.immortalwrt.org/releases/24.10.4/targets/${{ env.arch_path }}/immortalwrt-sdk-24.10.4-${{ env.arch-path }}_gcc-13.3.0_musl_eabi.Linux-x86_64.tar.zst"
           wget --spider -q "$SDK_URL1" && wget "$SDK_URL1" || wget "$SDK_URL2"
           mkdir OpenWrt-${{ env.arch-path }} && tar -I 'zstd -d' -xf immortalwrt-*.tar.zst -C OpenWrt-${{ env.arch-path }} --strip-components 1 && rm immortalwrt-*.tar.zst
 
@@ -184,6 +184,7 @@ jobs:
           REPO_URL="${{ matrix.repo_url }}"
           BRANCH="${{ matrix.branch }}"
           git clone -b "$BRANCH" --depth=1 "$REPO_URL" packages
+          git clone --depth=1 https://github.com/fw876/helloworld.git packages
           mv packages/* package/ && rm -rf packages
   
           if [ -f "${{ matrix.target }}" ]; then  
