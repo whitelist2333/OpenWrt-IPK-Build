@@ -154,9 +154,9 @@ jobs:
             aria2 build-essential clang llvm flex g++ gawk gcc-multilib gettext \
             git libncurses5-dev libssl-dev python3 python3-pyelftools python3-setuptools \
             rsync unzip zstd zlib1g-dev jq subversion qemu-utils ccache \
-            libelf-dev device-tree-compiler libgmp3-dev libmpc-dev libev-dev 
+            libelf-dev device-tree-compiler libgmp3-dev libmpc-dev libev-dev libshadowsocks-libev-dev 
           wget https://github.com/jedisct1/libsodium/releases/download/1.0.20-RELEASE/libsodium-1.0.20.tar.gz
-          (tar vzxf libsodium-1.0.20.tar.gz && cd libsodium-1.0.20 && ./configure && sudo make && sudo make install)
+          (tar vzxf libsodium-1.0.20.tar.gz && cd libsodium-1.0.20 && ./configure --prefix=/usr && make && make check && sudo make install)
           git clone --depth=1 https://github.com/openwrt-dev/po2lmo
           (cd po2lmo && sudo make && sudo make install)
           sudo cp /usr/local/lib/pkgconfig/libsodium.pc /usr/share/pkgconfig/
