@@ -159,7 +159,6 @@ jobs:
           (tar vzxf libsodium-1.0.20.tar.gz && cd libsodium-1.0.20 && ./configure && sudo make && sudo make install)
           git clone --depth=1 https://github.com/openwrt-dev/po2lmo
           (cd po2lmo && sudo make && sudo make install)
-          sudo echo "/usr/local/lib" > /etc/ld.so.conf.d/usr-local-lib.conf
           sudo cp /usr/local/lib/pkgconfig/libsodium.pc /usr/share/pkgconfig/
           sudo ldconfig
 
