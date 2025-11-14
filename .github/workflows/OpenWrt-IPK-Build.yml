@@ -148,7 +148,6 @@ jobs:
         uses: actions/checkout@v4
 
       - name: 加载环境
-      SSH_ACTIONS: true
         run: |
           sudo apt-get update -qq
           sudo apt-get install -qq --no-install-recommends \
@@ -156,8 +155,6 @@ jobs:
             git libncurses5-dev libssl-dev python3 python3-pyelftools python3-setuptools \
             rsync unzip zstd zlib1g-dev jq subversion qemu-utils ccache \
             libelf-dev device-tree-compiler libgmp3-dev libmpc-dev libev-dev libshadowsocks-libev-dev 
-          wget https://github.com/jedisct1/libsodium/releases/download/1.0.20-RELEASE/libsodium-1.0.20.tar.gz
-          (tar zxf libsodium-1.0.20.tar.gz && cd libsodium-1.0.20 && ./autogen.sh && ./configure && make && make check && sudo make install)
           git clone --depth=1 https://github.com/openwrt-dev/po2lmo
           (cd po2lmo && sudo make && sudo make install)
           sudo ldconfig
@@ -179,6 +176,10 @@ jobs:
         run: |
           shopt -s extglob
           cd OpenWrt-${{ env.arch-path }}
+          wget https://github.com/jedisct1/libsodium/releases/download/1.0.20-RELEASE/libsodium-1.0.20.tar.gz
+          (tar zxf libsodium-1.0.20.tar.gz && cd libsodium-1.0.20) 
+          bash ./autogen.sh && CROSS_PREFIX=mipsel-openwrt-linux-musl- ./configure --host=mipsel-openwrt-linux-musl --enable-minimal --disable-asm --with-pthreads=no CC=mipsel-openwrt-linux-musl-gcc CXX=mipsel-openwrt-linux-musl-g++ AR=mipsel-openwrt-linux-musl-ar RANLIB=mipsel-openwrt-linux-musl-ranlib CFLAGS="-mips32r2 -msoft-float -Os -mno-branch-likely" && make && make check && sudo make install)
+          cd ..
           cp -rf ../App/. .
           
           REPO_URL="${{ matrix.repo_url }}"
